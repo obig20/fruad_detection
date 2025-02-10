@@ -4,9 +4,9 @@ def feature_engineering(df):
      # - Daily and hourly transaction counts per user.
       #- Extract time-based features such as hour of day and day of week.
     
-    if 'user_id' in df.columns and 'transaction_date' in df.columns:
+    if 'user_id' in df.columns and 'purchase_time' in df.columns:
         # Daily transaction count
-        df['transaction_day'] = df['transaction_date'].dt.date
+        df['transaction_day'] = df['purchase_time'].dt.date
         daily_counts = (
             df.groupby(['user_id', 'transaction_day'])
             .size()
@@ -15,7 +15,7 @@ def feature_engineering(df):
         df = pd.merge(df, daily_counts, on=['user_id', 'transaction_day'], how='left')
 
         # Hourly transaction count
-        df['transaction_hour'] = df['transaction_date'].dt.floor('H')
+        df['transaction_hour'] = df['purchase_time'].dt.floor('H')
         hourly_counts = (
             df.groupby(['user_id', 'transaction_hour'])
             .size()
@@ -23,8 +23,8 @@ def feature_engineering(df):
         )
         df = pd.merge(df, hourly_counts, on=['user_id', 'transaction_hour'], how='left')
 
-    if 'transaction_date' in df.columns:
-        df['hour_of_day'] = df['transaction_date'].dt.hour
-        df['day_of_week'] = df['transaction_date'].dt.dayofweek  # Monday=0, Sunday=6
+    if 'purchase_time' in df.columns:
+        df['hour_of_day'] = df['purchase_time'].dt.hour
+        df['day_of_week'] = df['purchase_time'].dt.dayofweek  # Monday=0, Sunday=6
 
     return df
