@@ -1,0 +1,32 @@
+# .dockerignore
+# Ignore data files (if not needed for the build)
+data/
+
+# Ignore logs
+logs/
+
+# Ignore virtual environments
+venv/
+env/
+.venv/
+
+# Ignore Python cache and build files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+
+# Ignore Jupyter notebooks and checkpoints
+notebooks/
+.ipynb_checkpoints/
+
+# Ignore Git files
+.git/
+.gitignore
+
+# Ignore IDE-specific files
+.vscode/
+.idea/
